@@ -1,0 +1,54 @@
+<ul class="nav nav-tabs">
+    <li <%= raw session[:tag_filter] == 'items' ? "class='active'" : "" %>>
+        <%= link_to 'Items', tags_path(:filter => 'items') %>
+    </li>
+    <li <%= raw session[:tag_filter] == 'professions' ? "class='active'" : "" %>>
+        <%= link_to 'Professions', tags_path(:filter => 'professions') %>
+    </li>
+    <li <%= raw session[:tag_filter] == 'stores' ? "class='active'" : "" %>>
+        <%= link_to 'Stores', tags_path(:filter => 'stores') %>
+    </li>
+    <li <%= raw session[:tag_filter] == 'encounters' ? "class='active'" : "" %>>
+        <%= link_to 'Encounters', tags_path(:filter => 'encounters') %>
+    </li>
+</ul>
+<p><%= link_to 'New Tag', new_tag_path, {:class => 'btn btn-primary', :accesskey => 's'} %></p>
+<% unless (@tags.empty?) %>
+    <table class="table table-bordered table-hover">
+        <colgroup>
+            <col style="white-space: nowrap"/>
+            <col/>
+            <col/>
+            <col style="width:50px"/>
+        </colgroup>
+        <thead>
+            <tr>
+                <th style="white-space: nowrap">Name</th>
+                <th>Description</th>
+                <th>Uses</th>
+                <th width="50"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @tags.each_with_index do |tag, index| %>
+                <% if (index == 0 || @tags[index-1].category != tag.category) %>
+                    <tr class="info">
+                        <td colspan="4"><b><%= (tag.category.present?) ? tag.category.titleize : "-" %></b></td>
+                    </tr>
+                <% end %>
+                <tr>
+                    <td style="white-space:nowrap"><%= link_to tag.name, edit_tag_path(tag) %></td>
+                    <td><%= tag.description %></td>
+                    <td><%= tag.uses_count %></td>
+                    <td>
+                        <%= link_to 'Delete', tag, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% else %>
+    <p>No tags, which is kinda amazing. </p>
+<% end %>
+
+<%= render 'shared/nav_keys' %>

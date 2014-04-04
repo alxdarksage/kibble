@@ -1,0 +1,64 @@
+<%= render :partial => "shared/errors", :locals => { :model => @store } %>
+<%= form_for(@store, :html => {:class => 'form-horizontal' }) do |f| %>
+    <div class="control-group <%= is_error?(@store, :name) %>">
+        <%= f.label :name, :class => 'control-label' %>
+        <div class="controls">
+            <%= f.text_field :name, :class => 'input-xxlarge'  %><span class="help-inline"><%= @store.errors[:name].join(", ") %></span>
+        </div>
+    </div>
+    <div class="control-group <%= is_error?(@store, :policy) %>">
+        <%= f.label :policy, :class => 'control-label' %>
+        <div class="controls">
+            <%= f.text_field :policy, :class => 'input-xxlarge' %><span class="help-inline"><%= @store.errors[:policy].join(", ") %></span>
+        </div>
+    </div>
+    <div class="control-group <%= is_error?(@store, :owner_profession) %>">
+        <%= f.label :owner_profession, :class => 'control-label' %>
+        <div class="controls">
+            <%= f.text_field :owner_profession, :class => 'input-xxlarge' %><span class="help-inline"><%= @store.errors[:owner_profession].join(", ") %></span>
+        </div>
+    </div>
+    <div class="control-group <%= is_error?(@store, :owner_trait) %>">
+        <%= f.label :owner_trait, :class => 'control-label' %>
+        <div class="controls">
+            <%= f.text_field :owner_trait, :class => 'input-xxlarge' %><span class="help-inline"><%= @store.errors[:owner_trait].join(", ") %></span>
+        </div>
+    </div>
+    <div class="control-group <%= is_error?(@store, :bag_query) %>">
+        <%= f.label :bag_query, :class => 'control-label' %>
+        <div class="controls">
+            <%= f.text_field :bag_query, :class => 'input-xxlarge' %><span class="help-inline"><%= @store.errors[:bag_query].join(", ") %></span>
+        </div>
+    </div>
+    <div class="control-group <%= is_error?(@store, :bag_total_value) %>">
+        <%= f.label :bag_total_value, :class => 'control-label' %>
+        <div class="controls">
+            <%= f.text_field :bag_total_value, :class => 'input-xxlarge' %>
+            <span class="help-inline"><%= @store.errors[:bag_total_value].join(", ") %></span>
+        </div>
+    </div>
+    <div class="control-group <%= is_error?(@store, :tags) %>">
+        <label class="control-label" for="store_tags">Tags</label>
+        <div class="controls stream-box well well-small">
+            <% @tags.each_with_index do |tag, index| %>
+                <% previous = @tags[index-1] %>
+                <% if (previous.category != tag.category) %>
+                    <label><b><%= (tag.category || "none").capitalize %></b></label>
+                <% end %> 
+                <label style="padding-left: 1rem">
+                    <table>
+                        <tr>
+                            <td valign="top" style="padding-right: .5rem">
+                                <%= check_box_tag "store[tag_ids][]", tag.id, @store.tags.include?(tag) %>
+                            </td>
+                            <td>
+                                <%= tag.name %><br><small><%= tag.description %></small>
+                            </td>
+                        </tr>
+                    </table>
+                </label>
+            <% end %>
+        </div>
+    </div>
+    <%= render 'shared/keys' %>
+<% end %>

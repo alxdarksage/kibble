@@ -1,0 +1,70 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ *= require bootstrap.min
+ *= require humane
+ */
+
+.container {
+    margin: 2rem 0;
+}
+    
+.field_with_errors {
+    display: inline;
+}
+
+.table thead {
+    background-color: #f4f4f4;
+}
+.navbar-inner {
+    border-top-left-radius: 0px ! important;
+    border-top-right-radius: 0px ! important;
+    margin-top: -2.1rem;
+}
+.stream-box {
+    height: 18rem;
+    width: 25rem;
+    overflow-y: scroll;
+}
+.navbar {
+    font-family: 'Special Elite';
+    letter-spacing: 2px;
+}
+.navbar-inner {
+    padding-top: 8px;
+}
+.navbar a {
+    color: black ! important;
+}
+.pagination, #searchForm {
+    margin: 0 ! important;
+    text-align: right;
+}
+u {
+    text-decoration: none;
+    border-bottom: 1px solid darkblue;
+}
+small {
+    color: silver;
+}
+.table tbody tr.inverted>td {
+    font-family: 'Special Elite';
+    letter-spacing: 2px;
+    color: white;
+    background-color: #666;
+}
+tfoot {
+    background-color: #e5e5e5;
+}
+    .input-append {
+        margin: 0 ! important;
+    }

@@ -1,0 +1,23 @@
+atomic.getPlaces = function() { return ['<%= Tag.where(:category => 'building').map {|tag| tag.name.titleize }.sort.join("','").html_safe %>']; };
+atomic.getLocations = function() { return ['<%= Tag.where(:category => 'location').map {|tag| tag.name.titleize }.sort.join("', '").html_safe %>']; };
+
+ion.itemDb = new ion.db.ItemDatabase(['<%= @item_tags.join("','").html_safe %>']);
+ion.itemDb.register(
+<% @items.each do |item| %>
+"<%= as_item_export_string(item) %>"<%= (item == @items.last) ? "" : ", " %> 
+<% end %>
+);
+
+ion.profDb = new ion.db.ProfessionDatabase(['<%= @prof_tags.join("','").html_safe %>']);
+ion.profDb.register(ion.models.AtomicProfession,
+<% @professions.each do |prof| %>
+"<%= as_prof_export_string(prof) %>", "<%= raw prof.function %>"<%= (prof == @professions.last) ? "" : ", " %> 
+<% end %>
+);
+
+ion.storeDb = new ion.db.StoreDatabase(['<%= @store_tags.join("', '").html_safe %>']);
+ion.storeDb.register(
+<% @stores.each do |store| %>
+"<%= as_store_export_string(store) %>"<%= (store == @stores.last) ? "" : ", " %>
+<% end %>
+);

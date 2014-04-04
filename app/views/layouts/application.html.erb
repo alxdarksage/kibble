@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kibble - An Item Database</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
+    <%= javascript_include_tag "application" %>
+    <script src="http://atomicfrontiergames.com/ionosphere/build/ion.js"></script>
+    <%= csrf_meta_tags %>
+</head>
+<% if (notice.present?) %>
+    <script>
+    var notify = humane.create({baseCls: 'humane-jackedup', addnCls: 'humane-jackedup-success'});
+    notify.log("<%= notice %>");
+    </script>
+<% end %>
+<body class="container">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand">Kibble</a>
+            <ul class="nav">
+                <li <%= (controller_name == 'items') ? "class=active" : "" %>><a href="/items">Items</a></li>
+                <li <%= (controller_name == 'professions') ? "class=active" : "" %>><a href="/professions">Professions</a></li>
+                <li <%= (controller_name == 'stores') ? "class=active" : "" %>><a href="/stores">Stores</a></li>
+                <li <%= (controller_name == 'tags') ? "class=active" : "" %>><a href="/tags">Tags</a></li>
+                <li <%= (controller_name == 'rules') ? "class=active" : "" %>><a href="/rules">Rules</a></li>
+            </ul>
+        </div>
+    </div>
+    <%= yield %>
+</body>
+</html>

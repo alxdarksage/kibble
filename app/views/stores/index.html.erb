@@ -1,0 +1,37 @@
+<p align="left">
+    <%= link_to 'New Store', new_store_path, {:class => 'btn btn-primary'} %>
+    <%= link_to 'Export', '/export', {:class => 'btn btn-info'} %>
+</p>
+<% unless (@stores.empty?) %>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Inventory</th>
+                <th>Trade</th>
+                <th>Tags</th>
+                <th width="100"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @stores.each do |store| %>
+                <tr>
+                    <td><%= link_to store.name, edit_store_path(store) %></td>
+                    <td><%= store.bag_query %></td>
+                    <td><%= store.bag_total_value %></td>
+                    <td>
+                        <%= store.tags.pluck(:name).sort.map do |tag|
+                            link_to tag, stores_path
+                        end.join(', ').html_safe %> 
+                    </td>
+                    <td>
+                        <%= link_to 'Clone', "/stores/clone/#{store.id}", :class => 'btn btn-mini btn-info' %>
+                        <%= link_to 'Delete', store, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% else %>
+    <p>No stores. </p>
+<% end %>

@@ -1,0 +1,9 @@
+bower_components
+node_modules
+.DS_Store
+.project
+.settings
+TODO.txt
+Gemfile.lock
+*.log
+tmp

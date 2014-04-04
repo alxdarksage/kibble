@@ -1,0 +1,77 @@
+<table width="100%" style="line-height: 10px; margin-bottom: 8px">
+    <tr>
+        <td>
+            <%= link_to 'New Item', new_item_path, {:class => 'btn btn-primary'} %>
+            <%= link_to 'Export', '/export', {:class => 'btn btn-info'} %>
+            <%= link_to 'Validate', '/validate', {:class => 'btn btn-info'} %>
+        </td>
+        <td>
+            <%= form_tag("/items", :method => 'get', :id => 'searchForm') do %>
+                <div class="input-append">
+                    <input class="input-large" id="searchSrc" name="search" value="<%= params[:search] || cookies[:search] %>" type="text">
+                    <button class="btn" id="clear-search" type="button">Clear</button>
+                    <button class="btn" type="submit">Search</button>
+                </div>
+            <% end %>
+        </td>
+        <td>
+            <%= paginate @items %>
+        </td>
+    </tr>
+</table>
+<% unless (@items.empty?) %>
+    
+    <%= form_tag("/items/update_tags", :method => 'post', :id => 'mainForm') do %>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th width="10">
+                        <input type="checkbox" onclick="toggleCheckboxes(this)"/>
+                    </th>
+                    <th>Name</th>
+                    <th width="50">Value</th>
+                    <th width="50">Enc</th>
+                    <th>Tags</th>
+                    <th width="100"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @items.each do |item| %>
+                    <!-- <%= (item.enc == 0 && item.value == 0) ? 'warning' : '' %>  -->
+                    <tr class="<%= item.rules_validate ? '' : 'error' %>">
+                        <td><%= check_box_tag("item_ids[]", item.id) %></td>
+                        <td><%= link_to item.name, edit_item_path(item) %></td>
+                        <td><%= display_value(item) %></td>
+                        <td><%= display_enc(item) %></td>
+                        <td>
+                            <% item.tags.pluck(:name).sort.each do |tag| %>
+                                <%= link_to tag, items_path(:search => "tag:#{tag}") %>
+                            <% end %>
+                        </td>
+                        <td>
+                            <%= link_to 'Clone', "/items/clone/#{item.id}", :class => 'btn btn-mini btn-info' %>
+                            <%= link_to 'Delete', item, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6">
+                        <input type="hidden" id="searchDest" name="search"/> 
+                        <div class="input-append">
+                            <%= text_field_tag :tag %>
+                            <button class="btn" name="add" type="submit">Add Tag</button>
+                            <button class="btn" name="remove" type="submit">Remove Tag</button>
+                            <button class="btn" name="value" type="submit">Change Value</button>
+                            <button class="btn" name="enc" type="submit">Change Enc</button>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    <% end %>
+<% else %>
+    <p>No items. </p>
+<% end %>
+<%= render 'shared/nav_keys' %>

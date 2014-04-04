@@ -1,0 +1,6 @@
+<% if model.errors.any? %>
+    <script>
+    var notify = humane.create({baseCls: 'humane-jackedup', addnCls: 'humane-jackedup-error', timeout: 5000});
+    notify.log(["<%= model.errors.full_messages.join('","').html_safe %>"]);
+    </script>
+<% end %>

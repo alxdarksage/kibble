@@ -1,0 +1,46 @@
+<p align="left">
+    <%= link_to 'New Profession', new_profession_path, {:class => 'btn btn-primary'} %>
+    <%= link_to 'Export', '/export', {:class => 'btn btn-info'} %>
+</p>
+<% unless (@professions.empty?) %>
+    
+    <%= form_tag("/professions/update_tags", :method => 'post', :id => 'mainForm') do %>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Traits</th>
+                    <th>Tags</th>
+                    <th width="100"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @professions.each do |profession| %>
+                    <tr>
+                        <td><%= link_to profession.name, edit_profession_path(profession) %></td>
+                        <td>
+                            <b><%= profession.seeds.pluck(:name).sort.map do |tag|
+                                link_to tag, professions_path(:search => "seed:#{tag}")
+                            end.join(', ').html_safe %>, </b> 
+                            <%= profession.traits.pluck(:name).sort.map do |tag|
+                                link_to tag, professions_path(:search => "trait:#{tag}")
+                            end.join(', ').html_safe %> 
+                        </td>
+                        <td>
+                            <%= profession.tags.pluck(:name).sort.map do |tag|
+                                link_to tag, professions_path(:search => "tag:#{tag}")
+                            end.join(', ').html_safe %> 
+                        </td>
+                        <td>
+                            <%= link_to 'Clone', "/professions/clone/#{profession.id}", :class => 'btn btn-mini btn-info' %>
+                            <%= link_to 'Delete', profession, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    <% end %>
+<% else %>
+    <p>No professions. </p>
+<% end %>
+<%= render 'shared/nav_keys' %>

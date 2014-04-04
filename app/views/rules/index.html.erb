@@ -1,0 +1,30 @@
+<p><%= link_to 'New Rule', new_rule_path, {:class => 'btn btn-primary'} %></p>
+<% unless (@rules.empty?) %>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Identifier</th>
+                <th width="100%">Parameters</th>
+                <th width="50"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @rules.each_with_index do |rule, index| %>
+                <tr>
+                    <td><%= link_to rule.identifier, edit_rule_path(rule) %></td>
+                    <td><%= rule.parameters %></td>
+                    <td>
+                        <%= link_to 'Delete', rule, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %>
+                    </td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% else %>
+    <p>No rules, no order! </p>
+<% end %>
+
+<p><b>category</b> = must have one of the tags in this category </p>
+<p><b>linked</b> = if you have a tag in one group, you must a tag from the other group. You can only have one tag in each group.</p>
+
+<%= render 'shared/nav_keys' %>
