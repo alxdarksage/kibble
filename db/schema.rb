@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140403044319) do
+ActiveRecord::Schema.define(:version => 20140405201051) do
 
   create_table "items", :force => true do |t|
     t.string   "name"
@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(:version => 20140403044319) do
     t.integer  "bag_total_value"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.integer  "bag_min_value"
+    t.integer  "bag_max_value"
   end
 
   create_table "stores_tags", :id => false, :force => true do |t|

@@ -37,6 +37,20 @@
             <span class="help-inline"><%= @store.errors[:bag_total_value].join(", ") %></span>
         </div>
     </div>
+    <div class="control-group <%= is_error?(@store, :bag_min_value) %>">
+        <%= f.label :bag_min_value, :class => 'control-label' %>
+        <div class="controls">
+            <%= f.text_field :bag_min_value, :class => 'input-xxlarge' %>
+            <span class="help-inline"><%= @store.errors[:bag_min_value].join(", ") %></span>
+        </div>
+    </div>
+    <div class="control-group <%= is_error?(@store, :bag_max_value) %>">
+        <%= f.label :bag_max_value, :class => 'control-label' %>
+        <div class="controls">
+            <%= f.text_field :bag_max_value, :class => 'input-xxlarge' %>
+            <span class="help-inline"><%= @store.errors[:bag_max_value].join(", ") %></span>
+        </div>
+    </div>
     <div class="control-group <%= is_error?(@store, :tags) %>">
         <label class="control-label" for="store_tags">Tags</label>
         <div class="controls stream-box well well-small">
@@ -60,5 +74,52 @@
             <% end %>
         </div>
     </div>
-    <%= render 'shared/keys' %>
+    
+    <div class="control-group">
+        <div class="controls">
+            <label></label>
+            <div id="result"></div>
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <div class="controls">
+            <label></label>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <%= link_to 'Cancel', "/#{controller_name}", {:class => 'btn'} %>
+            <button type="button" onclick="tryTheseValues()" class="btn btn-success">Try These Values</button>
+        </div>
+    </div>
 <% end %>
+<script>
+function tryTheseValues() {
+    var tags = document.querySelector("#store_bag_query").value;
+    var totalValue = document.querySelector("#store_bag_total_value").value;
+    var minValue = document.querySelector("#store_bag_min_value").value;
+    var maxValue = document.querySelector("#store_bag_max_value").value;
+    var checked = document.querySelectorAll("input[type=checkbox]");
+    var clustering = "";
+    for (var i=0; i < checked.length; i++) {
+        var check = checked[i];
+        var text = check.parentNode.nextElementSibling.textContent.trim();
+        if (check.checked && text.indexOf("cluster:") > -1) {
+            clustering = text.split("cluster:")[1];
+        }
+    }
+    var opts = {fillBag: false};
+    if (tags) { opts.tags = tags; }
+    if (totalValue) { opts.totalValue = parseInt(totalValue,10); }
+    if (minValue) { opts.minValue = parseInt(minValue,10); }
+    if (maxValue) { opts.maxValue = parseInt(maxValue,10); }
+    if (clustering && clustering !== "none") { opts.cluster = clustering; }
+    console.log(opts);
+
+    if (opts.cluster) {
+        var output = "Stockpile: " + atomic.createStockpile(opts);
+    } else {
+        var output = "Bag: " + atomic.createBag(opts);
+    } 
+    document.getElementById('result').textContent = output;
+}
+
+</script>

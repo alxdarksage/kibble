@@ -40,7 +40,7 @@ module ApplicationHelper
             @store_tag_indexes[tag]
         end.join(' ')
         
-        "#{store.name}!#{store.policy}!#{store.owner_profession}!#{store.owner_trait}!#{store.bag_query}!#{store.bag_total_value}!#{tags}".html_safe
+        "#{store.name}!#{store.policy}!#{store.owner_profession}!#{store.owner_trait}!#{store.bag_query}!#{store.bag_total_value}!#{store.bag_min_value}!#{store.bag_max_value}!#{tags}".html_safe
     end
 
     def as_prof_export_string(prof)

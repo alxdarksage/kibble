@@ -1,7 +1,8 @@
 class TagsController < ApplicationController
     
     def index
-        filter = session[:tag_filter] = params[:filter] if params.has_key?(:filter)
+        session[:tag_filter] = params[:filter] if params.has_key?(:filter)
+        filter = session[:tag_filter]
         if (filter == 'professions')
             @tags = Tag.profession_tags + Tag.trait_tags
         elsif (filter == 'encounters')
