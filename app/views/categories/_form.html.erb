@@ -1,0 +1,38 @@
+<%= render :partial => "shared/errors", :locals => { :model => @category } %>
+<%= form_for(@category, :html => {:class => 'form-horizontal' }) do |f| %>
+    <div class="control-group <%= is_error?(@category, :name) %>">
+        <%= f.label :name, :class => 'control-label' %>
+        <div class="controls">
+            <%= f.text_field :name, :class => 'input-xxlarge'  %><span class="help-inline"><%= @category.errors[:name].join(", ") %></span>
+        </div>
+    </div>
+    <div class="control-group <%= is_error?(@category, :prefix) %>">
+        <%= f.label :prefix, :class => 'control-label' %>
+        <div class="controls">
+            <%= f.text_field :prefix, :class => 'input-xxlarge' %><span class="help-inline"><%= @category.errors[:prefix].join(", ") %></span>
+        </div>
+    </div>
+    <div class="control-group <%= is_error?(@tag, :available_for) %>">
+        <%= f.label :available_for, :class => 'control-label' %>
+        <div class="controls">
+            <%= f.text_field :available_for %><span class="help-inline"><%= @category.errors[:available_for].join(", ") %></span>
+            <span class="helptext">Pipe-delimited set of model names, e.g. "|item|profession|"</span>
+        </div>
+    </div>
+    
+    <div class="control-group" <%= is_error?(@category, :required) %>>
+        <div class="controls checkbox">
+            <%= label(:category, :required) do %>
+                <%= f.check_box :required %> Required?
+            <% end %>
+        </div>
+    </div>
+    <div class="control-group" <%= is_error?(@category, :exclusive) %>>
+        <div class="controls checkbox">
+            <%= label(:category, :exclusive) do %>
+                <%= f.check_box :exclusive %> Exclusive (must select only one)?
+            <% end %>
+        </div>
+    </div>
+    <%= render 'shared/keys' %>
+<% end %>

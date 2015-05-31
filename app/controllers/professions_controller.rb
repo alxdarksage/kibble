@@ -16,7 +16,7 @@ class ProfessionsController < ApplicationController
                 end
             end
         end
-        @professions = Kaminari.paginate_array(@professions).page(params[:page]).per(30)
+        #@professions = Kaminari.paginate_array(@professions).page(params[:page]).per(30)
     end
 
     def show
@@ -59,7 +59,7 @@ class ProfessionsController < ApplicationController
         if @profession.save
             redirect_to professions_path(:search => @profession.name), :notice => 'Profession was successfully created.'
         else
-            @tags = Tag.order(:category, :name).find(:all)
+            @tags = Tag.order(:cat, :name).find(:all)
             render :action => "new"
         end
     end
@@ -71,7 +71,7 @@ class ProfessionsController < ApplicationController
             @professions = Profession.all
             redirect_to professions_path(:search => @profession.name), :notice => 'Profession was successfully updated.'
         else
-            @tags = Tag.order(:category, :name).find(:all)
+            @tags = Tag.order(:cat, :name).find(:all)
             render :action => "edit"
         end
     end

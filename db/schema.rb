@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140405201051) do
+ActiveRecord::Schema.define(:version => 20140408154014) do
+
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.string   "prefix"
+    t.string   "available_for"
+    t.boolean  "required"
+    t.boolean  "exclusive"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "items", :force => true do |t|
     t.string   "name"
@@ -80,9 +90,10 @@ ActiveRecord::Schema.define(:version => 20140405201051) do
     t.string   "name"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
-    t.string   "category"
+    t.string   "cat"
     t.text     "description"
     t.string   "rel",         :default => "item"
+    t.integer  "category_id"
   end
 
 end

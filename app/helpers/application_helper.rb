@@ -1,7 +1,7 @@
 module ApplicationHelper
     
     def is_error?(model, field)
-        if (model.errors[field].any?)
+        if (!model.nil? && model.errors[field].any?)
             "error"
         else
             ""

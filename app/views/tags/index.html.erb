@@ -31,9 +31,9 @@
         </thead>
         <tbody>
             <% @tags.each_with_index do |tag, index| %>
-                <% if (index == 0 || @tags[index-1].category != tag.category) %>
+                <% if (index == 0 || @tags[index-1].cat != tag.cat) %>
                     <tr class="info">
-                        <td colspan="4"><b><%= (tag.category.present?) ? tag.category.titleize : "-" %></b></td>
+                        <td colspan="4"><b><%= (tag.cat.present?) ? tag.cat.titleize : "-" %></b></td>
                     </tr>
                 <% end %>
                 <tr>

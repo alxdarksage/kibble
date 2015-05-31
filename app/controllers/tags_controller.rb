@@ -51,7 +51,7 @@ class TagsController < ApplicationController
         @tag = Tag.find(params[:id])
         @tag.destroy
 
-        @tags = Tag.order(:category, :name).all
+        @tags = Tag.order(:cat, :name).all
         redirect_to tags_url, :notice => 'Tag was deleted.'
     end
     

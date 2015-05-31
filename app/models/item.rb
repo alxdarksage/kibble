@@ -11,8 +11,8 @@
     before_save :calc_fields
      
     def pruned_tags
-        frequency = (Tag.where(:category => 'frequency').pluck(:name) & tags.pluck(:name))
-        removals = Tag.where(:category => ['source', 'size', 'frequency']).pluck(:name)
+        frequency = (Tag.where(:cat => 'frequency').pluck(:name) & tags.pluck(:name))
+        removals = Tag.where(:cat => ['source', 'size', 'frequency']).pluck(:name)
         removals << 'nobr' # implied by br
         frequency + ((tags.pluck(:name).sort) - removals)
     end
@@ -35,9 +35,12 @@
         e += includes_tag(tag_names, ['rifle'], 3)
         
         # Frequency. But ignore stuff that is considered vital to survival, as that is priced separately.
-        unless (tag_names.include?('ammo') || tag_names.include?('firearm') || tag_names.include?('food') || tag_names.include?('melee') || tag_names.include?('armor'))
+        unless (tag_names.include?('ammo') || tag_names.include?('firearm') || tag_names.include?('food') || tag_names.include?('melee') || tag_names.include?('armor') || tag_names.include?('clothing'))
             e += includes_tag(tag_names, ['uncommon'], 2)
             e += includes_tag(tag_names, ['rare'], 5)
+        end
+        if (tag_names.include?('clothing'))
+            e += includes_tag(tag_names, ['clothing'], e)
         end
 
         # kind        

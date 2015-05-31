@@ -8,8 +8,8 @@ class Profession < ActiveRecord::Base
     validates :name, :presence => true
 
     def pruned_tags
-        frequency = (Tag.where(:category => 'frequency').pluck(:name) & tags.pluck(:name))
-        removals = Tag.where(:category => ['source', 'size', 'frequency']).pluck(:name)
+        frequency = (Tag.where(:cat => 'frequency').pluck(:name) & tags.pluck(:name))
+        removals = Tag.where(:cat => ['source', 'size', 'frequency']).pluck(:name)
         frequency + ((tags.pluck(:name).sort) - removals)
     end
 

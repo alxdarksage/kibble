@@ -6,10 +6,10 @@
             <%= f.text_field :name, :style => "font-weight: bold", :tabindex => 0 %><span class="help-inline"><%= @tag.errors[:name].join(", ") %></span>
         </div>
     </div>
-    <div class="control-group <%= is_error?(@tag, :category) %>">
-        <%= f.label :category, :class => 'control-label' %>
+    <div class="control-group <%= is_error?(@tag, :cat) %>">
+        <%= f.label :cat, :class => 'control-label' %>
         <div class="controls">
-            <%= f.text_field :category %><span class="help-inline"><%= @tag.errors[:category].join(", ") %></span>
+            <%= f.text_field :cat %><span class="help-inline"><%= @tag.errors[:cat].join(", ") %></span>
         </div>
     </div>
     <div class="control-group <%= is_error?(@tag, :rel) %>">

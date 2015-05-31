@@ -5,6 +5,7 @@ Kibble::Application.routes.draw do
     resources :items
     resources :stores
     resources :tags
+    resources :categories
     resources :rules
     resources :professions
 

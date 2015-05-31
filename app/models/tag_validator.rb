@@ -19,7 +19,7 @@ class TagValidator < ActiveModel::Validator
     end
     
     def category(record, tag_set, rule)
-        category_tag_set = Tag.where(:category => rule.parameters).pluck(:name).to_set
+        category_tag_set = Tag.where(:cat => rule.parameters).pluck(:name).to_set
         
         if (!one_in_set?(tag_set, category_tag_set))
             record.errors[:tag] << "requires one '#{rule.parameters}' tag"

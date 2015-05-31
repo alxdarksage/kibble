@@ -3,7 +3,7 @@ class StoresController < ApplicationController
     # Item.includes(:tags).where(:tags => {:name => 'firearm'})
     def index
         @stores = Store.order(:name).find(:all)
-        @stores = Kaminari.paginate_array(@stores).page(params[:page]).per(30)
+        #@stores = Kaminari.paginate_array(@stores).page(params[:page]).per(30)
     end
 
     def show

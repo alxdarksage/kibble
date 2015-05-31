@@ -17,8 +17,8 @@
         <div class="controls stream-box well well-small">
             <% @traits.each_with_index do |seed, index| %>
                 <% previous = @traits[index-1] %>
-                <% if (previous.category != seed.category) %>
-                    <label><b><%= (seed.category || "none").capitalize %></b></label>
+                <% if (previous.cat != seed.cat) %>
+                    <label><b><%= (seed.cat || "none").capitalize %></b></label>
                 <% end %> 
                 <div style="padding-left: 1rem">
                     <table>
@@ -43,8 +43,8 @@
         <div class="controls stream-box well well-small">
             <% @tags.each_with_index do |tag, index| %>
                 <% previous = @tags[index-1] %>
-                <% if (previous.category != tag.category) %>
-                    <label><b><%= (tag.category || "none").capitalize %></b></label>
+                <% if (previous.cat != tag.cat) %>
+                    <label><b><%= (tag.cat || "none").capitalize %></b></label>
                 <% end %> 
                 <label style="padding-left: 1rem">
                     <table>

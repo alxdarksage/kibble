@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Owner</th>
                 <th>Inventory</th>
                 <th>Trade</th>
                 <th>Tags</th>
@@ -16,7 +17,16 @@
         <tbody>
             <% @stores.each do |store| %>
                 <tr>
-                    <td><%= link_to store.name, edit_store_path(store) %></td>
+                    <td><%= link_to store.name, edit_store_path(store) %>
+                        <% if (store.policy.present?) %>
+                            <small><br><%= store.policy %></small>
+                        <% end %>
+                    </td>
+                    <td><%= store.owner_profession %>
+                        <% if (store.owner_trait.present?) %>
+                            <small><br><%= store.owner_trait %></small>
+                        <% end %>
+                    </td>
                     <td><%= store.bag_query %></td>
                     <td><%= store.bag_total_value %></td>
                     <td>
